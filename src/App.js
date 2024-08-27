@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import React, { createContext, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Header from './components/header/header';
+
+export const MyContext = createContext();
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+  const [isLogin, setIsLogin] = useState(false);
+  const [isopenNavigation, setIsopenNavigation] = useState(false);
+
+  const signOut = () => {
+    setIsLogin(false);
+  };
+
+  const contextValue = {
+    cartItems,
+    setCartItems,
+    isLogin,
+    setIsLogin,
+    isopenNavigation,
+    setIsopenNavigation,
+    signOut,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MyContext.Provider value={contextValue}>
+      <div>
+        <Header />
+      </div>
+    </MyContext.Provider>
   );
 }
 
